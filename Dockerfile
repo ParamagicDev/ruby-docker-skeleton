@@ -22,8 +22,10 @@ STOPSIGNAL SIGINT
 EXPOSE 8080
 
 # Set environment-variables to read
-ENV USERNAME="some_username"
-ENV PASSWORD="some_password"
+# Read $USERNAME env var if already set, if its not set,
+# give it a value.
+ENV USERNAME=${USERNAME:-"some_username"}
+ENV PASSWORD=${PASSWORD:-"some_password"}
 
 # Start the server
-CMD ["rackup", "-p8080", "--host", "0.0.0.0", "-E", "production", "-s", "webrick"]
+CMD ["rackup", "-p", "8080", "--host", "0.0.0.0", "-E", "production", "-s", "webrick"]
